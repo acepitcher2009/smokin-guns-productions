@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+/*
+  Tailwind v4 — design tokens go here via @theme.
+  The builder agent will populate this from the PRD's palette/typography.
+  Example:
+
+  @theme {
+    --color-primary: #E31914;
+    --font-display: "Oswald", sans-serif;
+  }
+*/
