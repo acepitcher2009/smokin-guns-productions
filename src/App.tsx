@@ -1,121 +1,87 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { HelmetProvider } from 'react-helmet-async';
+import type { HelmetServerState } from 'react-helmet-async';
+import { BrowserRouter, Navigate, Route, Routes, StaticRouter } from 'react-router-dom';
 
-function App() {
-  const [count, setCount] = useState(0)
+import { ConsentNotice } from './components/ConsentNotice';
+import { Footer } from './components/Footer';
+import { Header } from './components/Header';
+import { ScrollToTop } from './components/ScrollToTop';
+import { About } from './pages/About';
+import { Contact } from './pages/Contact';
+import { Events } from './pages/Events';
+import { Home } from './pages/Home';
+import { Register } from './pages/Register';
+import { Results } from './pages/Results';
+import { Sponsors } from './pages/Sponsors';
 
+// The persistent shell + route table, without a Router so tests can supply their
+// own (MemoryRouter). The default App below wraps this in BrowserRouter.
+export function AppShell() {
   return (
     <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.tsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
+      <ScrollToTop />
+      <div className="flex min-h-screen flex-col bg-cream font-sans text-ink">
+        <Header />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/events" element={<Events />} />
+            <Route path="/results" element={<Results />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/sponsors" element={<Sponsors />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </main>
+        <Footer />
+        <ConsentNotice />
+      </div>
     </>
-  )
+  );
 }
 
-export default App
+function App() {
+  return (
+    <HelmetProvider>
+      <BrowserRouter>
+        <AppShell />
+      </BrowserRouter>
+    </HelmetProvider>
+  );
+}
+
+/**
+ * Mutable context HelmetProvider fills with the collected head state during a
+ * server (SSG) render. After renderToString, `helmetContext.helmet` holds the
+ * serialized title/meta/link/script (incl. the JSON-LD) for the route. The
+ * shape mirrors react-helmet-async's own ProviderProps.context.
+ */
+export interface HelmetSsgContext {
+  helmet?: HelmetServerState;
+}
+
+/**
+ * The same app tree, but rendered for static prerendering: StaticRouter pins
+ * the route to a single `location` and the HelmetProvider writes its head state
+ * into the passed `helmetContext`. AppShell is shared verbatim with the client
+ * <App>, so the prerendered markup hydrates cleanly. Used only by the build-time
+ * prerender step (src/entry-server.tsx) — never shipped to the browser.
+ */
+export function AppServer({
+  location,
+  helmetContext,
+}: {
+  location: string;
+  helmetContext: HelmetSsgContext;
+}) {
+  return (
+    <HelmetProvider context={helmetContext}>
+      <StaticRouter location={location}>
+        <AppShell />
+      </StaticRouter>
+    </HelmetProvider>
+  );
+}
+
+export default App;

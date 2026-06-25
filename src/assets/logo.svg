@@ -1,0 +1,7 @@
+<!-- PLACEHOLDER logo. TODO(owner-confirm): replace with the high-fidelity crossed-pistols
+     "SMOKIN' GUNS PRODUCTIONS" emblem (PRD item 18 / §10 item 1). The supplied asset MUST
+     read cleanly on brand-red AND teal grounds (PRD §2). -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" role="img" aria-label="Smokin' Guns Productions">
+  <rect width="48" height="48" rx="8" fill="#121212" />
+  <text x="24" y="30" font-family="serif" font-size="20" fill="#ffffff" text-anchor="middle">SG</text>
+</svg>
