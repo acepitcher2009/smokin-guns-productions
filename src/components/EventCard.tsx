@@ -69,6 +69,15 @@ export function EventCard({ event, tone = 'cream' }: EventCardProps) {
         {dateLabel} · {venue.name}
       </p>
 
+      {/* Venue street address — shown when known (omitted while 'TBC'). */}
+      {venue.streetAddress !== 'TBC' && (
+        <address className="mt-1 font-sans text-base not-italic text-ink">
+          {venue.streetAddress}
+          <br />
+          {`${venue.city}, ${venue.state}${venue.zip !== 'TBC' ? ` ${venue.zip}` : ''}`}
+        </address>
+      )}
+
       {/* AM / PM time blocks — only rendered when present, all values from events.ts */}
       {(event.amRace || event.pmRace) && (
         <div className="mt-4 grid gap-4 md:grid-cols-2">

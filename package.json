@@ -12,7 +12,8 @@
     "preview": "vite preview",
     "format": "prettier --write .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "deploy": "npm run build && gh-pages -d dist --nojekyll"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -33,6 +34,7 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.2",
+    "gh-pages": "^6.3.0",
     "jsdom": "^29.1.1",
     "oxlint": "^1.69.0",
     "prettier": "^3.8.4",

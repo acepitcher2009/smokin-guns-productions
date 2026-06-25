@@ -5,14 +5,16 @@ import { ContactInfo } from './ContactInfo';
 import { businessInfo } from '../data/businessInfo';
 
 describe('ContactInfo', () => {
-  it('renders the exact NAP inside a semantic <address>', () => {
+  it('renders the business name + contact links in a semantic <address>, with no street address', () => {
     const { container } = render(<ContactInfo />);
     const address = container.querySelector('address');
     expect(address).not.toBeNull();
     const text = address?.textContent ?? '';
-    expect(text).toContain('Snook Rodeo Arena');
-    expect(text).toContain('11538 FM 3058');
-    expect(text).toContain('Somerville, TX 77874');
+    expect(text).toContain(businessInfo.legalName);
+    // Events run at multiple venues — no single street address on the contact page.
+    expect(text).not.toContain('11538 FM 3058');
+    expect(text).not.toContain(businessInfo.venueName);
+    expect(text).not.toContain('Somerville, TX 77874');
   });
 
   it('renders the phone as a tel: link with the visible human-readable number', () => {

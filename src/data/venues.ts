@@ -26,18 +26,18 @@ export const venues: Record<VenueId, Venue> = {
   },
   magnolia: {
     name: 'Magnolia Cowboy Church',
-    streetAddress: '2360 Dobbin Hufsmith Rd',
+    streetAddress: '23245 Glenmont Estates Blvd', // owner-confirmed
     city: 'Magnolia',
     state: 'TX',
-    zip: '77354',
+    zip: '77355',
     geo: null, // TODO(owner-confirm): latitude/longitude (PRD §10 item 7)
   },
   waller: {
     name: 'Waller Co. Fairgrounds',
-    streetAddress: 'TBC', // TODO(owner-confirm): exact street address (PRD §10 item 5)
-    city: 'Waller',
+    streetAddress: '21988 FM 359', // owner-confirmed
+    city: 'Hempstead',
     state: 'TX',
-    zip: 'TBC', // TODO(owner-confirm): zip (PRD §10 item 5)
+    zip: '77445',
     geo: null, // TODO(owner-confirm): latitude/longitude (PRD §10 item 7)
   },
 };

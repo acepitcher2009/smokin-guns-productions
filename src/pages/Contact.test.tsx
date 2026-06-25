@@ -37,9 +37,12 @@ describe('Contact page', () => {
     expect(h1s[0]).toHaveTextContent('Contact');
   });
 
-  it('renders the ContactInfo NAP street (11538 FM 3058)', () => {
+  it('does not render a single-venue street address or map (events run at multiple venues)', () => {
     renderContact();
-    expect(screen.getByText('11538 FM 3058')).toBeInTheDocument();
+    expect(screen.queryByText('11538 FM 3058')).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole('link', { name: /Get directions to Snook Rodeo Arena/i })
+    ).not.toBeInTheDocument();
   });
 
   it('renders the general contact form (message field + Send), not an event selector', () => {
@@ -48,13 +51,6 @@ describe('Contact page', () => {
     expect(screen.getByRole('button', { name: 'Send' })).toBeInTheDocument();
     // Event registration is a separate task on /register — no race selector here.
     expect(screen.queryByLabelText('Which race are you entering?')).not.toBeInTheDocument();
-  });
-
-  it('renders the venue map region (directions to the Snook arena)', () => {
-    renderContact();
-    expect(
-      screen.getByRole('link', { name: /Get directions to Snook Rodeo Arena/i })
-    ).toBeInTheDocument();
   });
 
   it('sets the contact page <title> via Seo', async () => {

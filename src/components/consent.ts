@@ -1,7 +1,7 @@
 // Single source of truth for the consent contract. Lives in its own .ts module
 // (not the component file) so ConsentNotice.tsx only exports a component
-// (react-refresh/only-export-components), and so VenueMap (story 28) can import
-// hasConsent() to gate its cookie-setting map embed behind the same stored truth.
+// (react-refresh/only-export-components). hasConsent() is available for any
+// future cookie-setting embed to gate behind the same stored truth.
 
 export const CONSENT_KEY = 'sgp-consent';
 

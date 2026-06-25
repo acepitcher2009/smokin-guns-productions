@@ -3,11 +3,11 @@ import { ContactForm } from '../components/ContactForm';
 import { ContactInfo } from '../components/ContactInfo';
 import { SectionBand } from '../components/SectionBand';
 import { Seo } from '../components/Seo';
-import { VenueMap } from '../components/VenueMap';
 
 // Contact page — getting in touch with the organization. Event registration is a
-// separate task on its own page (/register), so this carries a general contact
-// form, the NAP/hours, and the venue map only.
+// separate task on its own page (/register). Events run at multiple venues, so
+// there is no single-venue map or street address here — each event card carries
+// its own venue address instead.
 export function Contact() {
   return (
     <>
@@ -27,8 +27,6 @@ export function Contact() {
               <ContactForm />
             </div>
           </div>
-
-          <VenueMap />
         </div>
       </SectionBand>
     </>

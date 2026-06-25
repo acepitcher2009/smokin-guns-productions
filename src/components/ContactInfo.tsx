@@ -22,11 +22,8 @@ export function ContactInfo() {
         <span className="font-display text-3xl uppercase tracking-wide text-ink">
           {businessInfo.legalName}
         </span>
-        <span>{businessInfo.venueName}</span>
-        <span>{businessInfo.streetAddress}</span>
-        <span>
-          {businessInfo.city}, {businessInfo.state} {businessInfo.zip}
-        </span>
+        {/* No single street address — events run at multiple venues, each shown
+            on its own event card. Contact block is name + phone + email only. */}
         <a href={businessInfo.phoneHref} className={linkClass}>
           {businessInfo.phone}
         </a>

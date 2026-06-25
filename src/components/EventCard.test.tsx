@@ -47,6 +47,13 @@ describe('EventCard', () => {
     expect(screen.getByText(/Snook Rodeo Arena/)).toBeInTheDocument();
   });
 
+  it('renders the venue street address (Magnolia Cowboy Church)', () => {
+    renderCard('magnolia-playday-2026-06-27');
+    // The <address> text is split by a <br>, so match on substrings.
+    expect(screen.getByText(/23245 Glenmont Estates Blvd/)).toBeInTheDocument();
+    expect(screen.getByText(/Magnolia, TX 77355/)).toBeInTheDocument();
+  });
+
   it('Register link href is /register?event=<id>', () => {
     renderCard('snook-series-2026-05-30');
     const link = screen.getByRole('link', { name: 'Register' });
