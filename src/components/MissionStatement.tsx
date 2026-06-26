@@ -2,8 +2,8 @@ import { businessInfo } from '../data/businessInfo';
 
 /**
  * Verbatim mission for the About page. Reads the single source
- * (`businessInfo.missionVerbatim`) so it can never diverge from the Home
- * excerpt (`MissionSnippet`, story 15). The grammar fix "a upbeat" → "an upbeat"
+ * (`businessInfo.missionVerbatim`) so it can never diverge from the Hero's
+ * labelled mission on the Home page. The grammar fix "a upbeat" → "an upbeat"
  * is applied ONLY when the owner has approved it (`missionApproved === true`,
  * PRD §4.4); by default the text renders exactly as written, including "a upbeat".
  * Do not hand-type a corrected string.

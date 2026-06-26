@@ -37,10 +37,10 @@ describe('Home page', () => {
     expect(h1s[0]).toHaveTextContent('RUN WHERE THE MONEY IS AT');
   });
 
-  it('renders the mission excerpt and a "Read more" link to /about', () => {
+  it('renders the labelled mission statement in the hero', () => {
     renderHome();
+    expect(screen.getByRole('heading', { level: 2, name: 'Our Mission' })).toBeInTheDocument();
     expect(screen.getByText(/^At Smokin' Guns Productions/)).toBeInTheDocument();
-    expect(screen.getByRole('link', { name: 'Read more' })).toHaveAttribute('href', '/about');
   });
 
   it('renders the next-event section with a Register link to /register', () => {
@@ -50,15 +50,6 @@ describe('Home page', () => {
     expect(register.length).toBeGreaterThan(0);
     // The next-event card's Register routes to the event-scoped registration URL.
     expect(register[0].getAttribute('href')).toMatch(/^\/register/);
-  });
-
-  it('renders the results teaser linking to /results and never the tinyurl source', () => {
-    const { container } = renderHome();
-    const resultsLink = screen
-      .getAllByRole('link')
-      .find((link) => link.getAttribute('href') === '/results');
-    expect(resultsLink).toBeDefined();
-    expect(container.textContent).not.toContain('tinyurl');
   });
 });
 

@@ -1,3 +1,5 @@
+import { businessInfo } from '../data/businessInfo';
+
 import hero960 from '../assets/hero-960.jpg';
 import hero1440 from '../assets/hero-1440.jpg';
 import hero1920 from '../assets/hero-1920.jpg';
@@ -25,6 +27,10 @@ export function Hero() {
           <p className="font-display text-3xl uppercase tracking-wide text-ink">
             WELCOME TO THE HOUSE OF SMOKIN' RUNS!
           </p>
+          <div className="flex flex-col gap-2">
+            <h2 className="font-display text-2xl uppercase tracking-wide text-ink">Our Mission</h2>
+            <p className="font-sans text-base text-ink">{businessInfo.missionVerbatim}</p>
+          </div>
         </div>
 
         <img
