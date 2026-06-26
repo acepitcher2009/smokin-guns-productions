@@ -44,7 +44,7 @@ export function AppShell() {
 function App() {
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <AppShell />
       </BrowserRouter>
     </HelmetProvider>
@@ -77,7 +77,7 @@ export function AppServer({
 }) {
   return (
     <HelmetProvider context={helmetContext}>
-      <StaticRouter location={location}>
+      <StaticRouter location={location} basename={import.meta.env.BASE_URL}>
         <AppShell />
       </StaticRouter>
     </HelmetProvider>

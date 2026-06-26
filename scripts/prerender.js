@@ -16,7 +16,7 @@
  * Node ESM. (Authored in JS, not TS, so Node 20 can execute it with no extra
  * TypeScript runner; the source it bundles is fully typechecked by tsc.)
  */
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
+import { copyFile, mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -40,9 +40,10 @@ async function main() {
   const template = await readFile(join(distDir, 'index.html'), 'utf-8');
 
   const { render } = await import(pathToFileURL(ssrEntry).href);
-
+  const base = '/smokin-guns-productions';
   for (const route of routes) {
-    const { html, head } = render(route);
+    const location = route === '/' ? `${base}/` : `${base}${route}`;
+    const { html, head } = render(location);
 
     // Drop the template's static <title> so helmet's per-route <title> is the
     // only one, then inject the collected head before </head>.
@@ -55,6 +56,8 @@ async function main() {
     await writeFile(outPath, withBody, 'utf-8');
     console.log(`prerendered ${route} → ${outPath.replace(projectRoot + '/', '')}`);
   }
+  await copyFile(join(distDir, 'index.html'), join(distDir, '404.html'));
+  console.log('wrote 404.html fallback');
 }
 
 main().catch((error) => {
